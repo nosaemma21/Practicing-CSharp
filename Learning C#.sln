@@ -5,7 +5,11 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collections", "Collections\Collections.csproj", "{5780CE3B-ACC0-4DD9-873A-126CDC884F34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchAlgo", "BinarySearchAlgo\BinarySearchAlgo.csproj", "{E2A22CD3-3724-4A37-B279-513BFD1DDD51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearchAlgo", "BinarySearchAlgo\BinarySearchAlgo.csproj", "{E2A22CD3-3724-4A37-B279-513BFD1DDD51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionariesAndHashes", "DictionariesAndHashes\DictionariesAndHashes.csproj", "{9A4A7B5B-2638-4273-9F92-15AB129405D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise", "Exercise\Exercise.csproj", "{243B207F-C47B-4F73-85C5-8F9A7986CA5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{E2A22CD3-3724-4A37-B279-513BFD1DDD51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2A22CD3-3724-4A37-B279-513BFD1DDD51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2A22CD3-3724-4A37-B279-513BFD1DDD51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4A7B5B-2638-4273-9F92-15AB129405D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4A7B5B-2638-4273-9F92-15AB129405D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4A7B5B-2638-4273-9F92-15AB129405D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4A7B5B-2638-4273-9F92-15AB129405D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{243B207F-C47B-4F73-85C5-8F9A7986CA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{243B207F-C47B-4F73-85C5-8F9A7986CA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{243B207F-C47B-4F73-85C5-8F9A7986CA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{243B207F-C47B-4F73-85C5-8F9A7986CA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

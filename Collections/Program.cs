@@ -1,22 +1,14 @@
 ﻿
 using System.Collections;
 
-var customCollection = new CustomCollection(
-    new string[] { "aaa", "bbb", "ccc" });
+var input = Enumerable.Range(0, 100_000_000).ToArray();
 
-foreach (var word in customCollection)
+var list = new List<int>();
+foreach (var item in input)
 {
-    Console.WriteLine(word);
+    list.Add(item);
 }
 
-var newCollection = new CustomCollection
-{
-    "one", "two", "three"
-};
-
-var numbers = new List<int> { 1, 2, 3, 4, 5 };
-var array = new int[10];
-numbers.CopyTo(array, 2);
 
 Console.ReadKey();
 
@@ -54,7 +46,14 @@ public class CustomCollection : IEnumerable<string>
 
     public IEnumerator<string> GetEnumerator()
     {
-        return new WordsEnumerator(Words);
+        //return new WordsEnumerator(Words);
+        //foreach(var word in Words)
+        //{
+        //    yield return word;
+        //}
+
+        IEnumerable<string> words = Words;
+        return words.GetEnumerator();
     }
 }
 
@@ -87,6 +86,7 @@ public class WordsEnumerator : IEnumerator<string>
             }
         }
     }
+
     public bool MoveNext()
     {
         ++_currentPosition;
