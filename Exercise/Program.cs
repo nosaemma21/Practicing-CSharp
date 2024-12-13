@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Linq.Expressions;
 var list = new SinglyLinkedList<string>();
 
 list.AddToFront("a");
@@ -17,7 +18,7 @@ public interface ILinkedList<T> : ICollection<T>
 public class SinglyLinkedList<T> : ILinkedList<T?>
 {
     //fields
-    private Node<T> _head;
+    private Node? _head;
     private int _count;
 
 
@@ -27,17 +28,27 @@ public class SinglyLinkedList<T> : ILinkedList<T?>
 
     public void Add(T? item)
     {
-        throw new NotImplementedException();
+        AddToEnd(item);
     }
 
     public void AddToEnd(T? item)
     {
-        throw new NotImplementedException();
+        var newNode = new Node(item);
+        if (_head is null)
+        {
+            _head = newNode;
+        }
+        else
+        {
+            var tail = GetNodes().Last();
+            tail.Next = newNode;
+        }
+        ++_count;
     }
 
     public void AddToFront(T? item)
     {
-        var newHead = new Node<T>(item)
+        var newHead = new Node(item)
         {
             Next = _head
         };
@@ -47,27 +58,74 @@ public class SinglyLinkedList<T> : ILinkedList<T?>
 
     public void Clear()
     {
-        throw new NotImplementedException();
+        Node? current = _head;
+        while (current is not null)
+        {
+            Node? temporary = current;
+            current.Next = null;
+            temporary.Next = null;
+        }
+        _head = null;
+        _count = 0;
     }
 
     public bool Contains(T? item)
     {
-        throw new NotImplementedException();
+        if (item is null)
+        {
+            return GetNodes().Any(node => node.Value is null);
+        }
+        return GetNodes().Any(node => item.Equals(node.Value));
     }
 
     public void CopyTo(T?[] array, int arrayIndex)
     {
-        throw new NotImplementedException();
+        if (array is null)
+        {
+            throw new ArgumentNullException(nameof(array));
+        }
+        if (arrayIndex < 0 || arrayIndex >= array.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+        }
+        if (array.Length < _count + arrayIndex)
+        {
+            throw new ArgumentException("Array is not long enough");
+        }
+        foreach (var node in GetNodes())
+        {
+            array[arrayIndex] = node.Value;
+            ++arrayIndex;
+        }
     }
+
     public bool Remove(T? item)
     {
-        throw new NotImplementedException();
+        Node? predecessor = null;
+        foreach (var node in GetNodes())
+        {
+            if ((node.Value is null && item is null) || (node.Value is not null && node.Value.Equals(item)))
+            {
+                if (predecessor is null)
+                {
+                    _head = node.Next;
+                }
+                else
+                {
+                    predecessor.Next = node.Next;
+                }
+                --_count;
+                return true;
+            }
+            predecessor = node;
+        }
+        return false;
     }
 
 
     public IEnumerator<T?> GetEnumerator()
     {
-        foreach(var node in GetNodes())
+        foreach (var node in GetNodes())
         {
             yield return node.Value;
         }
@@ -78,136 +136,27 @@ public class SinglyLinkedList<T> : ILinkedList<T?>
         return GetEnumerator();
     }
 
-    private IEnumerable<Node<T>> GetNodes()
+    private IEnumerable<Node> GetNodes()
     {
-        if(_head is null)
-        {
-            yield break;
-        }
-
-        Node<T>? current = _head;
-        while(current is not null)
+        Node? current = _head;
+        while (current is not null)
         {
             yield return current;
             current = current.Next;
         }
     }
-}
 
-public class Node<T>
-{
-    public T? Value { get; set; }
-    public Node<T> Next { get; set; }
-
-    public Node(T? value)
+    private class Node
     {
-        Value = value;
+        public T? Value { get; }
+        public Node? Next { get; set; }
+
+        public Node(T? value)
+        {
+            Value = value;
+        }
+
+        public override string ToString() => $"Value: {Value}, " +
+            $"Next: {(Next is null ? "null" : Next.Value)}";
     }
-
-    public override string ToString() => $"Value: {Value}, " +
-        $"Next: {(Next is null ? "null" : Next.Value)}";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//public class CustomLinkedList<T> : ILinkedList<T>
-//{
-//    private List<T>? _collectionArray;
-//    private int _front = 0;
-
-//    public CustomLinkedList(T[] collectionArray)
-//    {
-//        int collectionLength = collectionArray.Count();
-//    }
-
-
-
-
-//    public bool IsReadOnly => false;
-
-
-//    public int Count
-//    {
-//        get {
-//            var value = 0;
-//            foreach (var item in _collectionArray)
-//            {
-//                ++value;
-//            }
-//            return value;
-//        }
-//    }
-
-//    public void Add(T item)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public void AddToEnd(T item) => throw new NotImplementedException();
-
-//    public void AddToFront(T item)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public void Clear()
-//    {
-//        _collectionArray = [];
-//    }
-
-//    public bool Contains(T item)
-//    {
-//        bool figure = false;
-//        foreach (T coll in _collectionArray)
-//        {
-//            if (item.Equals(coll))
-//            {
-//                figure = true;
-//                break;
-//            }
-//            figure = false;
-//        }
-//        return figure;
-
-//    }
-
-//    public void CopyTo(T[] array, int arrayIndex)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public IEnumerator<T> GetEnumerator()
-//    {
-//        foreach (T item in _collectionArray)
-//        {
-//            yield return item;
-//        }
-//    }
-
-//    public bool Remove(T item)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    IEnumerator IEnumerable.GetEnumerator()
-//    {
-//        return GetEnumerator();
-//    }
-//}
